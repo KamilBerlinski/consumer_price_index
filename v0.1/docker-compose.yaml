@@ -5,12 +5,7 @@ services:
       - "8080:8080"
     volumes:
       - ./scripts:/app/scripts
-      - /home/kamil/Documents/keys/gcp:/app/secrets:ro
-    environment:
-      - PYTHONUNBUFFERED=1
-      - PYTHONPATH=/app/scripts
-      - GOOGLE_APPLICATION_CREDENTIALS=/app/secrets/gcp-key-cpi.json
-      - GCP_PROJECT_ID=cunsomer-price-index
-      - BQ_DATASET=pl_market
-      - BQ_TABLE=market_indexes
-  
+      #- /home/kamil/Documents/keys/gcp:/app/secrets:ro # -- home
+      - /home/kberlinski/Documents/keys/gcp:/app/secrets:ro # -- work
+    env_file:
+      - env_vars.env
