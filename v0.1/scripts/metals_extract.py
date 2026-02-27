@@ -38,9 +38,7 @@ def fetch_metals_data():
     return records
 
 
-if __name__ == "__main__":
-    data = fetch_metals_data()
-    # for i in data:
-    #     print(i)
-    if data:
-        bigquery_upload(data)
+# if __name__ == "__main__":
+#     data = fetch_metals_data()
+#     for i in data:
+#         print(i)

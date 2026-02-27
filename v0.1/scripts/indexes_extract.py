@@ -25,10 +25,8 @@ def fetch_gpw():
     return records
 
 
-if __name__ == "__main__":
-    data = fetch_gpw()
-    # for d in data:
-    #     print(d)
-    if data:
-        bigquery_upload(data)
+# if __name__ == "__main__":
+#     data = fetch_gpw()
+#     for d in data:
+#         print(d)
 
