@@ -1,0 +1,24 @@
+# Python 
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# SECRETS -
+.env
+*.json
+*.kdbx
+secrets/
+
+# IDE 
+.vscode/
+.idea/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+*.log
