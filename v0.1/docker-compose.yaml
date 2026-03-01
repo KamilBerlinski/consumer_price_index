@@ -5,7 +5,7 @@ services:
       - "8080:8080"
     volumes:
       - ./scripts:/app/scripts
-      #- /home/kamil/Documents/keys/gcp:/app/secrets:ro # -- home
-      - /home/kberlinski/Documents/keys/gcp:/app/secrets:ro # -- work
+      - /home/kamil/Documents/keys/gcp:/app/secrets:ro # -- home
+      #- /home/kberlinski/Documents/keys/gcp:/app/secrets:ro # -- work
     env_file:
       - env_vars.env

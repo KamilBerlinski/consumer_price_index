@@ -2,11 +2,12 @@ from google.cloud import bigquery
 from google.cloud.exceptions import NotFound
 import os
 
-def bigquery_upload(records):
-    project_id = os.getenv("GCP_PROJECT_ID")
-    dataset_id = os.getenv("BQ_DATASET")
-    table_name = os.getenv("BQ_TABLE")
 
+project_id = os.getenv("GCP_PROJECT_ID")
+dataset_id = os.getenv("BQ_DATASET")
+table_name = os.getenv("BQ_TABLE")
+
+def bigquery_upload(records):
     client = bigquery.Client(project=project_id, location="EU")
     table_id = f"{project_id}.{dataset_id}.{table_name}"
 
@@ -32,11 +33,11 @@ def bigquery_upload(records):
         return
     
 
-    errors = client.insert_rows_json(table_id, records)
+    insert = client.insert_rows_json(table_id, records)
 
-    if errors == []:
+    if insert == []:
         print(f"Data sent. {len(records)} row/-s added.")
     else:
-        print(f"Errors while sending: {errors}.")
+        print(f"Errors while sending: {insert}.")
         
-    return errors
+    return insert

@@ -5,6 +5,7 @@ from utils import bigquery_upload
 from indexes_extract import fetch_gpw
 from metals_extract import fetch_metals_data
 from fx_rates_extarct import fetch_fx_rates
+from oil_gas_extract import fetch_oil_gas
 
 app = Flask(__name__)
 
@@ -37,7 +38,7 @@ def run_metals():
         return jsonify({"status": "success", "count": len(data)}), 200
 
     except Exception as e:
-        print("CRITICAL ERROR in  main.py:", file=sys.stderr)
+        print("CRITICAL ERROR in main.py:", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)
         
         return jsonify({"status": "error", "message": str(e)}), 500
@@ -53,11 +54,27 @@ def run_fx_rates():
         bigquery_upload(data)
         return jsonify({"status": "success", "count": len(data)}), 200
         
+        
     except Exception as e:
-        print("CRITICAL ERROR in  main.py:", file=sys.stderr)
+        print("CRITICAL ERROR in main.py:", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)
         
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route("/run-oil-gas", methods=["GET"])
+def run_oil_gas():
+    try:
+        print("DEBUG: Fetching Oil&Gas data...", file=sys.stderr)
+        data = fetch_oil_gas()
+        print(f"DEBUG: Records dowloaded: {len(data)}. Uploading to BQ...", file=sys.stderr)  
+
+        bigquery_upload(data)
+        return jsonify({"status": "success", "count": len(data)}), 200     
+
+    except Exception as e:
+        print("CRITICAL ERROR in main.py:", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)        
 
 if __name__ == "__main__":
     import os
