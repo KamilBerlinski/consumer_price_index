@@ -6,6 +6,7 @@ from indexes_extract import fetch_gpw
 from metals_extract import fetch_metals_data
 from fx_rates_extarct import fetch_fx_rates
 from oil_gas_extract import fetch_oil_gas
+from interest_rates_extract import fetch_nbp_rates
 
 app = Flask(__name__)
 
@@ -75,6 +76,24 @@ def run_oil_gas():
     except Exception as e:
         print("CRITICAL ERROR in main.py:", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)        
+        
+        
+@app.route('/run-nbp-rates', methods=['GET'])
+def run_nbp():
+    try:
+        print("DEBUG: Fetching NBP data...", file=sys.stderr)
+        data = fetch_nbp_rates()
+        print(f"DEBUG: Records dowloaded: {len(data)}. Uploading to BQ...", file=sys.stderr)
+        
+        bigquery_upload(data)
+        
+        return jsonify({"status": "success", "count": len(data)}), 200
+
+    except Exception as e:
+        print("CRITICAL ERROR in  main.py:", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
+        
+        return jsonify({"status": "error", "message": str(e)}), 500        
 
 if __name__ == "__main__":
     import os
