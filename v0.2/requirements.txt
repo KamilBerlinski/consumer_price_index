@@ -1,0 +1,7 @@
+pandas
+yfinance
+lxml
+beautifulsoup4
+google-cloud-bigquery
+flask
+gunicorn

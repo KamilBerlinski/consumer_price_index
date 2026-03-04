@@ -1,0 +1,11 @@
+services:
+  index-job:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./scripts:/app/scripts:z
+      - /home/kamil/Documents/keys/gcp:/app/secrets:ro,z # -- home
+      #- /home/kberlinski/Documents/keys/gcp:/app/secrets:ro,z # -- work
+    env_file:
+      - env_vars.env
