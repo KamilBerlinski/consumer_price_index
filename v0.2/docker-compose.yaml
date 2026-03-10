@@ -5,7 +5,9 @@ services:
       - "8080:8080"
     volumes:
       - ./scripts:/app/scripts:z
-      - /home/kamil/Documents/keys/gcp:/app/secrets:ro,z # -- home
-      #- /home/kberlinski/Documents/keys/gcp:/app/secrets:ro,z # -- work
+      #- /home/kamil/Documents/keys/gcp:/app/secrets:ro,z # -- home
+      - /home/kberlinski/Documents/keys/gcp:/app/secrets:ro # -- work
     env_file:
       - env_vars.env
+    enviroment:
+    - GOOGLE_APPLICATION_CREDENTIALS=/app/secrets/gcp-key-cpi.json
