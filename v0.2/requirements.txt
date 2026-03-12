@@ -5,3 +5,4 @@ beautifulsoup4
 google-cloud-bigquery
 flask
 gunicorn
+google-cloud-language
