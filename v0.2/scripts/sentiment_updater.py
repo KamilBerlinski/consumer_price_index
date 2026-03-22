@@ -36,6 +36,7 @@ def insert_empty_sentiments():
             `{table_path}`
         Where 
             sentiment_score is null
+        Limit 20
     """
     
     try: 
@@ -54,7 +55,7 @@ def insert_empty_sentiments():
     r_count = 0
     for row in records:
         full_text =  f"{row.title}. {row.description}"
-        document = language_v1.Document(content = full_text, type = language_v1.Document.Type.PLAIN_TEXT)
+        document = language_v1.Document(content = full_text, type_ = language_v1.Document.Type.PLAIN_TEXT)
         
         try:
             analysis = nl_client.analyze_sentiment(request = {"document": document})
@@ -62,7 +63,7 @@ def insert_empty_sentiments():
             logger.info(f"{row.title}. Score: {score}")
         except Exception as e:
             logger.error(f"ERROR while assessing score {e}")
-            return 0
+            continue
         
         query_up = f""" 
             Update `{table_path}`
